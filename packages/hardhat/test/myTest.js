@@ -7,11 +7,11 @@ use(solidity);
 describe("My Dapp", function () {
   let myContract;
 
-  describe("YourContract", function () {
-    it("Should deploy YourContract", async function () {
-      const YourContract = await ethers.getContractFactory("YourContract");
+  describe("PolyAlloyToken", function () {
+    it("Should deploy PolyAlloyToken", async function () {
+      const PolyAlloyToken = await ethers.getContractFactory("PolyAlloyToken");
 
-      myContract = await YourContract.deploy();
+      myContract = await PolyAlloyToken.deploy();
     });
 
     describe("setPurpose()", function () {
