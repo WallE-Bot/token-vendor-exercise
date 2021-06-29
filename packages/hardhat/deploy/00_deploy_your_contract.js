@@ -11,13 +11,29 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     log: true,
   });
 
-  // get the contract after deployment
+  // get the contract after deployment and send supply to my address
   const PolyAlloyToken = await ethers.getContract("PolyAlloyToken", deployer);
+  const tokenAddress = PolyAlloyToken.address;
   const supply = await PolyAlloyToken.totalSupply();
   const myAddress = '0xf59950DF4D0816F236FFb3A83fc58318B0ac0250';
 
-  // transfer to my front-end address
-  const result = await PolyAlloyToken.transfer( myAddress, supply );
+  await deploy("Vendor", {
+    // Learn more about args here: https://www.npmjs.com/package/hardhat-deploy#deploymentsdeploy
+    from: deployer,
+    args: [tokenAddress],
+    log: true,
+  });
+
+  const Vendor = await ethers.getContract("Vendor", deployer);
+  const vendorAddress = Vendor.address;
+
+  // transfer the full supply to vendor(for now) and transfer
+  // ownership to my front-end address
+  const result = await PolyAlloyToken.transfer( vendorAddress, supply );
+  await Vendor.transferOwnership(myAddress);
+
+  // increaes vendor allowance
+  await PolyAlloyToken.increaseAllowance(vendorAddress, supply);
 
   /*
     // Getting a previously deployed contract
