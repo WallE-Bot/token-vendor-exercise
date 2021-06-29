@@ -1,4 +1,5 @@
 // deploy/00_deploy_your_contract.js
+const utils = require("@ethersproject/units");
 
 module.exports = async ({ getNamedAccounts, deployments }) => {
   const { deploy } = deployments;
@@ -9,6 +10,14 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     // args: ["Hello"],
     log: true,
   });
+
+  // get the contract after deployment
+  const PolyAlloyToken = await ethers.getContract("PolyAlloyToken", deployer);
+  const supply = await PolyAlloyToken.totalSupply();
+  const myAddress = '0xf59950DF4D0816F236FFb3A83fc58318B0ac0250';
+
+  // transfer to my front-end address
+  const result = await PolyAlloyToken.transfer( myAddress, supply );
 
   /*
     // Getting a previously deployed contract
