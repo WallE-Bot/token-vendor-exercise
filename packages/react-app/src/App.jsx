@@ -113,6 +113,25 @@ function App(props) {
   // Load in your local 📝 contract and read a value from it:
   const readContracts = useContractLoader(localProvider);
 
+  const [PolyAlloyTokenContract, setPolyAlloyTokenContract] = useState();
+  const [VendorTokenContract, setVendorTokenContract] = useState();
+  const [userPLAYBalance, setUserPLAYBalance] = useState(0);
+
+  useEffect(() => {
+    if (readContracts) {
+      setPolyAlloyTokenContract(readContracts['PolyAlloyToken']);
+      setVendorTokenContract(readContracts['Vendor']);
+    }
+  }, [readContracts]);
+
+  useEffect(() => {
+    if (PolyAlloyTokenContract) {
+      PolyAlloyTokenContract
+        .balanceOf(address)
+        .then(balance => setUserPLAYBalance(balance.toString()));
+    }
+  }, [PolyAlloyTokenContract]);
+
   // If you want to make 🔐 write transactions to your contracts, use the userSigner:
   const writeContracts = useContractLoader(userSigner, { chainId: localChainId });
 
@@ -295,6 +314,7 @@ function App(props) {
         isConnected={isConnected}
         loadWeb3Modal={loadWeb3Modal}
         logoutOfWeb3Modal={logoutOfWeb3Modal}
+        userPLAYBalance={userPLAYBalance}
       />
 
       {/*
