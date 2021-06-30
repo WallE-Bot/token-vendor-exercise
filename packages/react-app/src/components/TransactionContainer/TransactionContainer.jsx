@@ -7,7 +7,8 @@ const TransactionContainer = () => {
   const [activePanel, setActivePanel] = useState('buy');
 
   const handlePanelClick = e => {
-    const panel = e.target.text;
+    const panel = e.target.value;
+    console.log(panel);
     setActivePanel(panel);
   }
 

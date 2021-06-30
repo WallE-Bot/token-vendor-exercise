@@ -15,7 +15,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 .25px 0 .25px #01A6FF;
+  border: 1px solid #106390;
+  border-left: 0;
+  border-top: 0;
   padding: 5px 15px;
 }
 

@@ -14,6 +14,7 @@ const TransactionPanels = ({ activePanel, handlePanelClick }) => {
         <button
           key={uuid()}
           onClick={handlePanelClick}
+          value={type}
           className={`panel ${type}${selected}`}
         >
           {type}

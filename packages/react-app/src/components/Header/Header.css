@@ -2,6 +2,6 @@ header {
   height: 100px;
   width: 100%;
   display: flex;
-  box-shadow: 0 .25px 0 #01A6FF;
+  border-bottom: 1px solid #106390;
   background: rgba(0, 1, 49, .5);
 }

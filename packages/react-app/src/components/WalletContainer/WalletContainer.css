@@ -12,12 +12,12 @@
 
 .wallet-button {
   background: rgba(0, 1, 49, .5);
-  border: 0;
   padding: 2px 12px;
   position: absolute;
-  top: 101px;
+  top: 100px;
   right: 0;
-  box-shadow: -.25px .25px 0 #01A6FF;
+  border: 1px solid #106390;
+  border-top: 0;
   cursor: pointer;
   width: 100px;
 }
