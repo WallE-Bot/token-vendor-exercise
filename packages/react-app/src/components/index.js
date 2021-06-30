@@ -22,3 +22,4 @@ export { default as WalletContainer } from "./WalletContainer/WalletContainer.js
 export { default as Title } from "./Title/Title.jsx";
 export { default as TokenInfoContainer } from "./TokenInfoContainer/TokenInfoContainer.jsx";
 export { default as Main } from "./Main/Main.jsx";
+export { default as TransactionContainer } from "./TransactionContainer/TransactionContainer.jsx";

@@ -14,7 +14,7 @@
 .info-list-item {
   display: flex;
   justify-content: center;
-  align-content: center;
+  align-items: center;
   box-shadow: 0 .25px 0 .25px #01A6FF;
   padding: 5px 15px;
 }

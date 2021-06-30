@@ -1,0 +1,35 @@
+.transaction-container {
+  width: 100%;
+  box-shadow: .25px #01A6FF;
+  background: rgba(0, 1, 49, .5);
+  height: 250px;
+  position: absolute;
+  bottom: 0;
+}
+
+.transaction-panels {
+  height: 50px;
+  display: flex;
+  box-shadow: 0px -.25px .25px .25px #01A6FF;
+}
+
+.panel {
+  width: 50%;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 .25px .25px .25px #01A6FF;
+  cursor: pointer;
+}
+
+.buy {
+
+}
+
+.transfer {
+
+}
+
+.transaction-window {
+}

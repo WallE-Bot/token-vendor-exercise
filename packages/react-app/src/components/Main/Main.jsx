@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Main.css';
-import { TokenInfoContainer } from '../../components';
+import { TokenInfoContainer, TransactionContainer } from '../../components';
 
 const Main = ({ vendorPLAYBalance, tokensPerETH }) => {
 
@@ -10,6 +10,7 @@ const Main = ({ vendorPLAYBalance, tokensPerETH }) => {
         vendorPLAYBalance={vendorPLAYBalance}
         tokensPerETH={tokensPerETH}
       />
+      <TransactionContainer />
     </main>
   )
 
