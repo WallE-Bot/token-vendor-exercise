@@ -2,11 +2,14 @@ import React, { useState } from 'react';
 import { uuid } from 'uuidv4';
 import './TokenInfoContainer.css';
 
-const TokenInfoContainer = () => {
+const TokenInfoContainer = ({ vendorPLAYBalance, tokensPerETH }) => {
+  console.log(tokensPerETH);
+
+  const rate = 1 / tokensPerETH;
 
   const infoData = {
-    'rate': '.0001 ETH / PLAY',
-    'vendor supply': '10000'
+    'rate': `${rate} ETH / PLAY`,
+    'vendor supply': `${vendorPLAYBalance}`
   }
 
   const generateTokenInfoList = () => {

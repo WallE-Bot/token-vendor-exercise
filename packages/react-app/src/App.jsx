@@ -114,22 +114,28 @@ function App(props) {
   const readContracts = useContractLoader(localProvider);
 
   const [PolyAlloyTokenContract, setPolyAlloyTokenContract] = useState();
-  const [VendorTokenContract, setVendorTokenContract] = useState();
+  const [VendorContract, setVendorContract] = useState();
   const [userPLAYBalance, setUserPLAYBalance] = useState(0);
+  const [vendorPLAYBalance, setVendorPLAYBalance] = useState(0);
 
   useEffect(() => {
     if (readContracts) {
       setPolyAlloyTokenContract(readContracts['PolyAlloyToken']);
-      setVendorTokenContract(readContracts['Vendor']);
+      setVendorContract(readContracts['Vendor']);
     }
   }, [readContracts]);
 
+  const tokensPerETH = useContractReader(readContracts, 'Vendor', 'tokensPerETH');
+
   useEffect(() => {
-    if (PolyAlloyTokenContract) {
-      PolyAlloyTokenContract
-        .balanceOf(address)
-        .then(balance => setUserPLAYBalance(balance.toString()));
-    }
+    (async () => {
+      if (PolyAlloyTokenContract) {
+        const userBalance = await PolyAlloyTokenContract.balanceOf(address);
+        const vendorBalance = await PolyAlloyTokenContract.balanceOf(VendorContract.address);
+        setUserPLAYBalance(userBalance.toString());
+        setVendorPLAYBalance(vendorBalance.toString());
+      }
+    })()
   }, [PolyAlloyTokenContract]);
 
   // If you want to make 🔐 write transactions to your contracts, use the userSigner:
@@ -317,7 +323,10 @@ function App(props) {
         userPLAYBalance={userPLAYBalance}
       />
 
-      <Main />
+      <Main
+        vendorPLAYBalance={vendorPLAYBalance}
+        tokensPerETH={tokensPerETH}
+      />
 
       {/*
       <div style={{ position: "fixed", textAlign: "right", right: 0, top: 0, padding: 10 }}>

@@ -2,11 +2,14 @@ import React, { useState, useEffect } from 'react';
 import './Main.css';
 import { TokenInfoContainer } from '../../components';
 
-const Main = () => {
+const Main = ({ vendorPLAYBalance, tokensPerETH }) => {
 
   return (
     <main>
-      <TokenInfoContainer />
+      <TokenInfoContainer
+        vendorPLAYBalance={vendorPLAYBalance}
+        tokensPerETH={tokensPerETH}
+      />
     </main>
   )
 
