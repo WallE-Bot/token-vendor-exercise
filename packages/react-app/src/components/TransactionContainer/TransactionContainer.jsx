@@ -17,7 +17,9 @@ const TransactionContainer = () => {
         activePanel={activePanel}
         handlePanelClick={handlePanelClick}
       />
-      <TransactionWindow />
+      <TransactionWindow
+        activePanel={activePanel}
+      />
     </div>
   );
 

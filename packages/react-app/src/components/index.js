@@ -25,3 +25,5 @@ export { default as Main } from "./Main/Main.jsx";
 export { default as TransactionContainer } from "./TransactionContainer/TransactionContainer.jsx";
 export { default as TransactionWindow } from "./TransactionWindow/TransactionWindow.jsx";
 export { default as TransactionPanels } from "./TransactionPanels/TransactionPanels.jsx";
+export { default as BuyForm } from "./BuyForm/BuyForm.jsx";
+export { default as TransferForm } from "./TransferForm/TransferForm.jsx";

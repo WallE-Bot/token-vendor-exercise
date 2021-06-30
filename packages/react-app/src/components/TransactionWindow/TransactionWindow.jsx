@@ -1,7 +1,8 @@
 import React from 'react';
 import './TransactionWindow.css';
+import { BuyForm, TransferForm } from '../../components';
 
-const TransactionWindow = () => {
+const TransactionWindow = ({ activePanel }) => {
 
   return (
     <div className='transaction-window'>
