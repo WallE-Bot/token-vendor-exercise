@@ -63,7 +63,8 @@
     ]
   },
   "dependencies": {
-    "@openzeppelin/contracts": "^4.1.0"
+    "@openzeppelin/contracts": "^4.1.0",
+    "uuidv4": "^6.2.10"
   },
   "devDependencies": {
     "loader-utils": "^2.0.0"

@@ -5,7 +5,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { BrowserRouter, Link, Route, Switch } from "react-router-dom";
 import Web3Modal from "web3modal";
 import "./App.css";
-import { Account, Contract, Faucet, GasGauge, Header, Ramp, ThemeSwitch } from "./components";
+import { Main, Account, Contract, Faucet, GasGauge, Header, Ramp, ThemeSwitch } from "./components";
 import { INFURA_ID, NETWORK, NETWORKS } from "./constants";
 import { Transactor } from "./helpers";
 import {
@@ -317,6 +317,8 @@ function App(props) {
         userPLAYBalance={userPLAYBalance}
       />
 
+      <Main />
+
       {/*
       <div style={{ position: "fixed", textAlign: "right", right: 0, top: 0, padding: 10 }}>
         <Account
@@ -334,7 +336,7 @@ function App(props) {
       </div>
       */}
 
-      {/* 🗺 Extra UI like gas price, eth price, faucet, and support: */}
+      {/*
       <div style={{ position: "fixed", textAlign: "left", left: 0, bottom: 20, padding: 10 }}>
         <Row align="middle" gutter={[4, 4]}>
           <Col span={8}>
@@ -363,7 +365,7 @@ function App(props) {
         <Row align="middle" gutter={[4, 4]}>
           <Col span={24}>
             {
-              /*  if the local provider has a signer, let's show the faucet:  */
+               if the local provider has a signer, let's show the faucet:
               faucetAvailable ? (
                 <Faucet localProvider={localProvider} price={price} ensProvider={mainnetProvider} />
               ) : (
@@ -373,6 +375,7 @@ function App(props) {
           </Col>
         </Row>
       </div>
+      */}
     </div>
   );
 }

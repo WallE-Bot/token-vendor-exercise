@@ -1,0 +1,23 @@
+.token-info-container {
+  width: 25%;
+  min-width: 150px;
+  background: rgba(0, 1, 49, .5);
+  font-size: 1.3em;
+  margin-top: 1px;
+}
+
+.info-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.info-list-item {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  box-shadow: 0 .25px 0 .25px #01A6FF;
+  padding: 5px 15px;
+}
+
+.info-item-text {
+}

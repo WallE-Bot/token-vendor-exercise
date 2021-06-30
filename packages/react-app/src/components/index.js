@@ -20,3 +20,5 @@ export { default as L2Bridge } from "./L2Bridge";
 export { default as Logo } from "./Logo/Logo.jsx";
 export { default as WalletContainer } from "./WalletContainer/WalletContainer.jsx";
 export { default as Title } from "./Title/Title.jsx";
+export { default as TokenInfoContainer } from "./TokenInfoContainer/TokenInfoContainer.jsx";
+export { default as Main } from "./Main/Main.jsx";
