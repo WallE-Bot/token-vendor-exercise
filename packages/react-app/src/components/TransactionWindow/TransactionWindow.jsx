@@ -8,7 +8,6 @@ const TransactionWindow = ({ activePanel }) => {
     return activePanel === 'buy'
       ? <BuyForm />
       : <TransferForm />
-
   }
 
   return (

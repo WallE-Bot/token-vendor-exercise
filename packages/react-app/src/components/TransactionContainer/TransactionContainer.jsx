@@ -4,7 +4,7 @@ import { TransactionWindow, TransactionPanels } from '../../components';
 
 const TransactionContainer = () => {
 
-  const [activePanel, setActivePanel] = useState('buy');
+  const [activePanel, setActivePanel] = useState('transfer');
 
   const handlePanelClick = e => {
     const panel = e.target.value;

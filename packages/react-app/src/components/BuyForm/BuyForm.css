@@ -24,6 +24,20 @@
   outline: none;
 }
 
+.transaction-form > label > input[type='number'] {
+  background: transparent;
+  border: 1px solid #106390;
+  padding: 2px 12px;
+  width: 250px;
+  margin-left: 15px;
+  margin-bottom: 8px;
+}
+
+.transaction-form > label > input[type='number']:focus {
+  outline: none;
+}
+
+
 .transaction-form > input[type='submit'] {
   margin: 15px auto;
   background: transparent;

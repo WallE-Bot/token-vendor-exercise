@@ -3,9 +3,23 @@ import './BuyForm.css';
 
 const BuyForm = () => {
 
-  const [playAmount, setPlayAmount] = useState(0);
-  const [ethTotal, setEthTotal] = useState(0);
-  const [usdTotal, setUsdTotal] = useState(0);
+  const [playAmount, setPlayAmount] = useState('');
+  const [ethTotal, setEthTotal] = useState('');
+  const [usdTotal, setUsdTotal] = useState('');
+
+  const handleInputChange = e => {
+    const stateFunctions = {
+      'play-amount': setPlayAmount,
+      'eth-total': setEthTotal,
+      'usd-total': setUsdTotal
+    };
+
+    const inputName = e.target.id;
+    const value = e.target.value;
+    const stateFunction = stateFunctions[inputName];
+
+    stateFunction(value);
+  }
 
   return (
     <form
@@ -14,27 +28,33 @@ const BuyForm = () => {
       <label htmlFor='play-amount'>
         PLAY amount:
         <input
+          onChange={handleInputChange}
           name='play-amount'
           id='play-amount'
-          type='text'
+          type='number'
+          placeHolder='0'
           value={playAmount}
         />
       </label>
       <label htmlFor='eth-total'>
         ETH total:
         <input
+          onChange={handleInputChange}
           name='eth-total'
           id='eth-total'
-          type='text'
+          type='number'
+          placeHolder='0'
           value={ethTotal}
         />
       </label>
       <label htmlFor='usd-total'>
         USD total:
         <input
+          onChange={handleInputChange}
           name='usd-total'
           id='usd-total'
-          type='text'
+          type='number'
+          placeHolder='0'
           value={usdTotal}
         />
       </label>
