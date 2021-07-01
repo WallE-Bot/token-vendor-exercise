@@ -29,6 +29,7 @@ const Main = ({
         address={address}
         userLocalBalance={userLocalBalance}
         vendorAddress={vendorAddress}
+        tokensPerETH={tokensPerETH}
       />
     </main>
   )

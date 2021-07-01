@@ -10,7 +10,8 @@ const TransactionWindow = ({
     PolyAlloyTokenContract,
     address,
     userLocalBalance,
-    vendorAddress
+    vendorAddress,
+    tokensPerETH,
  }) => {
 
    const props = {
@@ -19,7 +20,9 @@ const TransactionWindow = ({
      userLocalBalance,
      PolyAlloyTokenContract,
      address,
-     vendorAddress
+     vendorAddress,
+     tokensPerETH,
+     ethPrice,
    }
 
   const generateForm = () => {

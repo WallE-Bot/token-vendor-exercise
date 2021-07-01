@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './BuyForm.css';
+import { parseEther } from "@ethersproject/units";
 
 // error handling and UI feedback to do later
 const BuyForm = ({
@@ -16,27 +17,31 @@ const BuyForm = ({
   const [ethTotal, setEthTotal] = useState('');
   const [usdTotal, setUsdTotal] = useState('');
 
+  // not reading metmask address properly
   const isUserETHBalanceSufficient = () => {
-    return userLocalBalance.toString() >= ethTotal;
+    console.log((parseEther('1')).gte(parseEther('1')));
+    return userLocalBalance.gte(1);
   }
 
   const isVendorPLAYBalanceSufficient = () => {
-    return vendorPLAYBalance >= playAmount;
+    console.log(parseEther(vendorPLAYBalance).gte(parseEther(playAmount)));
+    return parseEther(vendorPLAYBalance).gte(parseEther(playAmount));
   }
 
   const handleSubmit = async e => {
     e.preventDefault();
+    console.log('here');
 
     const userETHSufficient = isUserETHBalanceSufficient();
     const vendorPLAYSufficient = isVendorPLAYBalanceSufficient();
-    console.log('fired', userLocalBalance.toString(), vendorPLAYBalance);
+    console.log(userETHSufficient,vendorPLAYSufficient)
     if (userETHSufficient && vendorPLAYSufficient) {
-      console.log('success');
-      const result = await PolyAlloyTokenContract.transferFrom(
-          vendorAddress,
-          address,
-          playAmount
-        );
+      console.log('success')
+      await PolyAlloyTokenContract.transferFrom(
+        vendorAddress,
+        address,
+        playAmount
+      );
       setAllValues('');
     }
   }
@@ -48,20 +53,20 @@ const BuyForm = ({
   }
 
   const handlePlayAmountChange = value => {
-    const ethValue = value / tokensPerETH;
+    const ethValue = parseFloat(value) / parseFloat(tokensPerETH);
     const usdValue = ethValue * ethPrice;
     setAllValues(value, ethValue, usdValue);
   }
 
   const handleEthTotalChange = value => {
-    const playValue = value * tokensPerETH;
-    const usdValue = value * ethPrice;
+    const playValue = parseFloat(value) * parseFloat(tokensPerETH);
+    const usdValue = parseFloat(value) * ethPrice;
     setAllValues(playValue, value, usdValue);
   }
 
   const handleUsdTotalChange = value => {
-    const ethValue = value / ethPrice;
-    const playValue = ethValue * tokensPerETH;
+    const ethValue = parseFloat(value) / ethPrice;
+    const playValue = ethValue * parseFloat(tokensPerETH);
     setAllValues(playValue, ethValue, value);
   }
 
@@ -73,9 +78,11 @@ const BuyForm = ({
     };
 
     const inputName = e.target.id;
-    const value = e.target.value;
-    const stateFunction = stateFunctions[inputName];
 
+    const value = e.target.value;
+    if (!value) { setAllValues('', '', ''); return; }
+
+    const stateFunction = stateFunctions[inputName];
     stateFunction(value);
   }
 
