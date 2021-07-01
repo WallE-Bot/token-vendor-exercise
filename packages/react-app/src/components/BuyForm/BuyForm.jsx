@@ -8,21 +8,16 @@ const BuyForm = ({
     vendorPLAYBalance,
     address,
     vendorAddress,
-    polyAlloyTokenContract
+    PolyAlloyTokenContract,
+    tokensPerETH,
   }) => {
 
   const [playAmount, setPlayAmount] = useState('');
   const [ethTotal, setEthTotal] = useState('');
   const [usdTotal, setUsdTotal] = useState('');
 
-  const reset = () => {
-    setPlayAmount('');
-    setEthTotal('');
-    setUsdTotal('');
-  }
-
   const isUserETHBalanceSufficient = () => {
-    return userLocalBalance >= ethTotal;
+    return userLocalBalance.toString() >= ethTotal;
   }
 
   const isVendorPLAYBalanceSufficient = () => {
@@ -34,22 +29,47 @@ const BuyForm = ({
 
     const userETHSufficient = isUserETHBalanceSufficient();
     const vendorPLAYSufficient = isVendorPLAYBalanceSufficient();
-
+    console.log('fired', userLocalBalance.toString(), vendorPLAYBalance);
     if (userETHSufficient && vendorPLAYSufficient) {
-      const result = await polyAlloyTokenContract.transferFrom(
+      console.log('success');
+      const result = await PolyAlloyTokenContract.transferFrom(
           vendorAddress,
           address,
           playAmount
         );
-      reset();
+      setAllValues('');
     }
+  }
+
+  const setAllValues = (PLAY, ETH, USD) => {
+    setPlayAmount(PLAY);
+    setEthTotal(ETH);
+    setUsdTotal(USD);
+  }
+
+  const handlePlayAmountChange = value => {
+    const ethValue = value / tokensPerETH;
+    const usdValue = ethValue * ethPrice;
+    setAllValues(value, ethValue, usdValue);
+  }
+
+  const handleEthTotalChange = value => {
+    const playValue = value * tokensPerETH;
+    const usdValue = value * ethPrice;
+    setAllValues(playValue, value, usdValue);
+  }
+
+  const handleUsdTotalChange = value => {
+    const ethValue = value / ethPrice;
+    const playValue = ethValue * tokensPerETH;
+    setAllValues(playValue, ethValue, value);
   }
 
   const handleInputChange = e => {
     const stateFunctions = {
-      'play-amount': setPlayAmount,
-      'eth-total': setEthTotal,
-      'usd-total': setUsdTotal
+      'play-amount': handlePlayAmountChange,
+      'eth-total': handleEthTotalChange,
+      'usd-total': handleUsdTotalChange
     };
 
     const inputName = e.target.id;
@@ -57,6 +77,10 @@ const BuyForm = ({
     const stateFunction = stateFunctions[inputName];
 
     stateFunction(value);
+  }
+
+  const convertToETH = (value) => {
+    return
   }
 
   return (
@@ -71,7 +95,7 @@ const BuyForm = ({
           name='play-amount'
           id='play-amount'
           type='number'
-          placeHolder='0'
+          placeholder='0'
           value={playAmount}
         />
       </label>
@@ -82,7 +106,7 @@ const BuyForm = ({
           name='eth-total'
           id='eth-total'
           type='number'
-          placeHolder='0'
+          placeholder='0'
           value={ethTotal}
         />
       </label>
@@ -93,7 +117,7 @@ const BuyForm = ({
           name='usd-total'
           id='usd-total'
           type='number'
-          placeHolder='0'
+          placeholder='0'
           value={usdTotal}
         />
       </label>

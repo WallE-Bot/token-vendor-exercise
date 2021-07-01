@@ -6,10 +6,12 @@ const TransactionContainer = ({
     ethPrice,
     address,
     userLocalBalance,
-    vendorAddress
+    vendorAddress,
+    vendorPLAYBalance,
+    PolyAlloyTokenContract,
   }) => {
 
-  const [activePanel, setActivePanel] = useState('transfer');
+  const [activePanel, setActivePanel] = useState('buy');
 
   const handlePanelClick = e => {
     const panel = e.target.value;
@@ -29,6 +31,8 @@ const TransactionContainer = ({
         address={address}
         userLocalBalance={userLocalBalance}
         vendorAddress={vendorAddress}
+        vendorPLAYBalance={vendorPLAYBalance}
+        PolyAlloyTokenContract={PolyAlloyTokenContract}
       />
     </div>
   );

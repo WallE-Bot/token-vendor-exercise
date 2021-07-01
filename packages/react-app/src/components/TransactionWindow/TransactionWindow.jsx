@@ -7,7 +7,7 @@ const TransactionWindow = ({
     ethPrice,
     userPLAYBalance,
     vendorPLAYBalance,
-    polyAlloyTokenContract,
+    PolyAlloyTokenContract,
     address,
     userLocalBalance,
     vendorAddress
@@ -17,7 +17,7 @@ const TransactionWindow = ({
      userPLAYBalance,
      vendorPLAYBalance,
      userLocalBalance,
-     polyAlloyTokenContract,
+     PolyAlloyTokenContract,
      address,
      vendorAddress
    }
