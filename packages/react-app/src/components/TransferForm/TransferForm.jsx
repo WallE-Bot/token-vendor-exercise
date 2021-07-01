@@ -1,19 +1,48 @@
 import React, { useState } from 'react';
 import './TransferForm.css';
 
-const TransferForm = () => {
+// error handling and UI feedback to do later
+const TransferForm = ({
+    ethPrice,
+    userPLAYBalance,
+    yourLocalBalance,
+    polyAlloyTokenContract,
+    address
+  }) => {
 
   const [playAmount, setPlayAmount] = useState('');
   const [recipient, setRecipient] = useState('');
   const [ethTotal, setEthTotal] = useState('');
   const [usdTotal, setUsdTotal] = useState('');
 
+  const reset = () => {
+    setPlayAmount('');
+    setRecipient('');
+    setEthTotal('');
+    setUsdTotal('');
+  }
+
+  // is user PLAY balance large enough
+  const isBalanceSufficient = () => {
+    return userPLAYBalance >= playAmount;
+  }
+
+  const handleSubmit = async e => {
+    e.preventDefault();
+
+    const hasBalance = isBalanceSufficient();
+    if (hasBalance) {
+      const result = await polyAlloyTokenContract.transferFrom(address, recipient, playAmount);
+      reset();
+    }
+  }
+
   const handleInputChange = e => {
     const stateFunctions = {
       'play-amount': setPlayAmount,
       'recipient': setRecipient,
-      'eth-total': setEthTotal,
-      'usd-total': setUsdTotal
+      'eth-value': setEthTotal,
+      'usd-value': setUsdTotal
     };
 
     const inputName = e.target.id;
@@ -24,7 +53,10 @@ const TransferForm = () => {
   }
 
   return (
-    <form className='transaction-form'>
+    <form
+      className='transaction-form'
+      onSubmit={handleSubmit}
+    >
       <label htmlFor='play-amount'>
         PLAY amount:
         <input
@@ -32,7 +64,7 @@ const TransferForm = () => {
           name='play-amount'
           id='play-amount'
           type='number'
-          placeHolder='0'
+          placeholder='0'
           value={playAmount}
         />
       </label>
@@ -43,29 +75,29 @@ const TransferForm = () => {
           name='recipient'
           id='recipient'
           type='text'
-          placeHolder='0x0000000000000000000000000000000000000000'
+          placeholder='0x0000000000000000000000000000000000000000'
           value={recipient}
         />
       </label>
-      <label htmlFor='eth-total'>
-        ETH total:
+      <label htmlFor='eth-value'>
+        ETH value:
         <input
           onChange={handleInputChange}
-          name='eth-total'
-          id='eth-total'
+          name='eth-value'
+          id='eth-value'
           type='number'
-          placeHolder='0'
+          placeholder='0'
           value={ethTotal}
         />
       </label>
-      <label htmlFor='usd-total'>
-        USD total:
+      <label htmlFor='usd-value'>
+        USD value:
         <input
           onChange={handleInputChange}
-          name='usd-total'
-          id='usd-total'
+          name='usd-value'
+          id='usd-value'
           type='number'
-          placeHolder='0'
+          placeholder='0'
           value={usdTotal}
         />
       </label>

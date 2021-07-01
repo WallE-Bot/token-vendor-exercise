@@ -2,7 +2,17 @@ import React, { useState, useEffect } from 'react';
 import './Main.css';
 import { TokenInfoContainer, TransactionContainer } from '../../components';
 
-const Main = ({ vendorPLAYBalance, tokensPerETH }) => {
+const Main = ({
+    vendorPLAYBalance,
+    tokensPerETH,
+    ethPrice,
+    userPLAYBalance,
+    yourLocalBalance,
+    PolyAlloyTokenContract,
+    address,
+    userLocalBalance,
+    vendorAddress
+ }) => {
 
   return (
     <main>
@@ -10,7 +20,16 @@ const Main = ({ vendorPLAYBalance, tokensPerETH }) => {
         vendorPLAYBalance={vendorPLAYBalance}
         tokensPerETH={tokensPerETH}
       />
-      <TransactionContainer />
+      <TransactionContainer
+        ethPrice={ethPrice}
+        userPLAYBalance={userPLAYBalance}
+        vendorPLAYBalance={vendorPLAYBalance}
+        yourLocalBalance={yourLocalBalance}
+        PolyAlloyTokenContract={PolyAlloyTokenContract}
+        address={address}
+        userLocalBalance={userLocalBalance}
+        vendorAddress={vendorAddress}
+      />
     </main>
   )
 

@@ -1,11 +1,49 @@
 import React, { useState } from 'react';
 import './BuyForm.css';
 
-const BuyForm = () => {
+// error handling and UI feedback to do later
+const BuyForm = ({
+    ethPrice,
+    userLocalBalance,
+    vendorPLAYBalance,
+    address,
+    vendorAddress,
+    polyAlloyTokenContract
+  }) => {
 
   const [playAmount, setPlayAmount] = useState('');
   const [ethTotal, setEthTotal] = useState('');
   const [usdTotal, setUsdTotal] = useState('');
+
+  const reset = () => {
+    setPlayAmount('');
+    setEthTotal('');
+    setUsdTotal('');
+  }
+
+  const isUserETHBalanceSufficient = () => {
+    return userLocalBalance >= ethTotal;
+  }
+
+  const isVendorPLAYBalanceSufficient = () => {
+    return vendorPLAYBalance >= playAmount;
+  }
+
+  const handleSubmit = async e => {
+    e.preventDefault();
+
+    const userETHSufficient = isUserETHBalanceSufficient();
+    const vendorPLAYSufficient = isVendorPLAYBalanceSufficient();
+
+    if (userETHSufficient && vendorPLAYSufficient) {
+      const result = await polyAlloyTokenContract.transferFrom(
+          vendorAddress,
+          address,
+          playAmount
+        );
+      reset();
+    }
+  }
 
   const handleInputChange = e => {
     const stateFunctions = {
@@ -24,6 +62,7 @@ const BuyForm = () => {
   return (
     <form
       className='transaction-form buy-form'
+      onSubmit={handleSubmit}
     >
       <label htmlFor='play-amount'>
         PLAY amount:

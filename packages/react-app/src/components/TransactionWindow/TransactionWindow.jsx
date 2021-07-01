@@ -2,12 +2,30 @@ import React from 'react';
 import './TransactionWindow.css';
 import { BuyForm, TransferForm } from '../../components';
 
-const TransactionWindow = ({ activePanel }) => {
+const TransactionWindow = ({
+    activePanel,
+    ethPrice,
+    userPLAYBalance,
+    vendorPLAYBalance,
+    polyAlloyTokenContract,
+    address,
+    userLocalBalance,
+    vendorAddress
+ }) => {
+
+   const props = {
+     userPLAYBalance,
+     vendorPLAYBalance,
+     userLocalBalance,
+     polyAlloyTokenContract,
+     address,
+     vendorAddress
+   }
 
   const generateForm = () => {
     return activePanel === 'buy'
-      ? <BuyForm />
-      : <TransferForm />
+      ? <BuyForm {...props} />
+      : <TransferForm {...props} />
   }
 
   return (

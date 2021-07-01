@@ -117,6 +117,7 @@ function App(props) {
   const [VendorContract, setVendorContract] = useState();
   const [userPLAYBalance, setUserPLAYBalance] = useState(0);
   const [vendorPLAYBalance, setVendorPLAYBalance] = useState(0);
+  const [vendorAddress, setVendorAddress] = useState();
 
   useEffect(() => {
     if (readContracts) {
@@ -124,6 +125,12 @@ function App(props) {
       setVendorContract(readContracts['Vendor']);
     }
   }, [readContracts]);
+
+  useEffect(() => {
+    if (VendorContract) {
+      setVendorAddress(VendorContract.address);
+    }
+  }, [VendorContract]);
 
   const tokensPerETH = useContractReader(readContracts, 'Vendor', 'tokensPerETH');
 
@@ -326,6 +333,14 @@ function App(props) {
       <Main
         vendorPLAYBalance={vendorPLAYBalance}
         tokensPerETH={tokensPerETH}
+        ethPrice={price}
+        userPLAYBalance={userPLAYBalance}
+        vendorPLAYBalance={vendorPLAYBalance}
+        userETHBalance={yourLocalBalance}
+        PolyAlloyTokenContract={PolyAlloyTokenContract}
+        address={address}
+        userLocalBalance={yourLocalBalance}
+        vendorAddress={vendorAddress}
       />
 
       {/*

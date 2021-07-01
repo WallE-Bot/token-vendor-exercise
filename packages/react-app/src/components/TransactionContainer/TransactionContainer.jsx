@@ -2,7 +2,12 @@ import React, { useState } from 'react';
 import './TransactionContainer.css';
 import { TransactionWindow, TransactionPanels } from '../../components';
 
-const TransactionContainer = () => {
+const TransactionContainer = ({
+    ethPrice,
+    address,
+    userLocalBalance,
+    vendorAddress
+  }) => {
 
   const [activePanel, setActivePanel] = useState('transfer');
 
@@ -20,6 +25,10 @@ const TransactionContainer = () => {
       />
       <TransactionWindow
         activePanel={activePanel}
+        ethPrice={ethPrice}
+        address={address}
+        userLocalBalance={userLocalBalance}
+        vendorAddress={vendorAddress}
       />
     </div>
   );

@@ -3,8 +3,6 @@ import { uuid } from 'uuidv4';
 import './TokenInfoContainer.css';
 
 const TokenInfoContainer = ({ vendorPLAYBalance, tokensPerETH }) => {
-  console.log(tokensPerETH);
-
   const rate = 1 / tokensPerETH;
 
   const infoData = {
