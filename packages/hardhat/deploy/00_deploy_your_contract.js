@@ -15,7 +15,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
   const PolyAlloyToken = await ethers.getContract("PolyAlloyToken", deployer);
   const tokenAddress = PolyAlloyToken.address;
   const supply = await PolyAlloyToken.totalSupply();
-  const myAddress = '0xf59950DF4D0816F236FFb3A83fc58318B0ac0250';
+  const myAddress = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266';
 
   await deploy("Vendor", {
     // Learn more about args here: https://www.npmjs.com/package/hardhat-deploy#deploymentsdeploy
@@ -30,11 +30,11 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
   // transfer the full supply to vendor(for now) and transfer
   // ownership to my front-end address
   await PolyAlloyToken.transfer(vendorAddress, supply);
-  await PolyAlloyToken.increaseAllowance(vendorAddress, supply);
   await Vendor.transferOwnership(myAddress);
 
   // increaes vendor allowance
   await PolyAlloyToken.increaseAllowance(vendorAddress, supply);
+  await PolyAlloyToken.increaseAllowance(myAddress, supply);
 
   /*
     // Getting a previously deployed contract

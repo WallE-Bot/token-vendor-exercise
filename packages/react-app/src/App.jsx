@@ -85,6 +85,7 @@ function App(props) {
     async function getAddress() {
       if (userSigner) {
         const newAddress = await userSigner.getAddress();
+        console.log(newAddress);
         setAddress(newAddress);
       }
     }

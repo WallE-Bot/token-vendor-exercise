@@ -19,24 +19,20 @@ const BuyForm = ({
 
   // not reading metmask address properly
   const isUserETHBalanceSufficient = () => {
-    console.log((parseEther('1')).gte(parseEther('1')));
     return userLocalBalance.gte(1);
   }
 
   const isVendorPLAYBalanceSufficient = () => {
-    console.log(parseEther(vendorPLAYBalance).gte(parseEther(playAmount)));
     return parseEther(vendorPLAYBalance).gte(parseEther(playAmount));
   }
 
   const handleSubmit = async e => {
     e.preventDefault();
-    console.log('here');
 
     const userETHSufficient = isUserETHBalanceSufficient();
     const vendorPLAYSufficient = isVendorPLAYBalanceSufficient();
-    console.log(userETHSufficient,vendorPLAYSufficient)
+
     if (userETHSufficient && vendorPLAYSufficient) {
-      console.log('success')
       await PolyAlloyTokenContract.transferFrom(
         vendorAddress,
         address,
