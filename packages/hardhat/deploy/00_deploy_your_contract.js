@@ -31,9 +31,6 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
   // ownership to my front-end address
   await PolyAlloyToken.transfer(vendorAddress, supply);
   await Vendor.transferOwnership(myAddress);
-
-  // increaes vendor allowance
-  await PolyAlloyToken.increaseAllowance(vendorAddress, supply);
   await PolyAlloyToken.increaseAllowance(myAddress, supply);
 
   /*
