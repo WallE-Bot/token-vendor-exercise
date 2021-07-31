@@ -1,6 +1,7 @@
 pragma solidity >=0.6.0 <0.9.0;
 //SPDX-License-Identifier: MIT
 
+import "hardhat/console.sol";
 import './YourContract.sol';
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/math/SafeMath.sol";
@@ -28,7 +29,8 @@ contract Vendor is Ownable {
     confirm sufficient balance in UI as well
   */
   function buyTokens(address purchaser, uint256 tokenAmount) public payable {
-    playToken.transferFrom(address(this), purchaser, tokenAmount);
+    console.log(address(this), tokenAmount);
+    playToken.transfer(purchaser, tokenAmount);
   }
 
 }

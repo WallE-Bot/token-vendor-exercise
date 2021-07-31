@@ -27,6 +27,8 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
 
   const result = await YourContract.transfer( vendorContractAddress, utils.parseEther("1000") );
   await VendorContract.transferOwnership(myAddress);
+  await YourContract.increaseAllowance(vendorContractAddress, supply);
+  await YourContract.increaseAllowance(myAddress, supply);
 };
 module.exports.tags = ["YourContract"];
 
