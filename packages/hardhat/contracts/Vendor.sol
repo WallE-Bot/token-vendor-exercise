@@ -29,8 +29,8 @@ contract Vendor is Ownable {
     confirm sufficient balance in UI as well
   */
   function buyTokens(address purchaser, uint256 tokenAmount) public payable {
-    uint256 tokenValue = tokenAmount * (10 ** 18);
-    uint256 tokenETHValue = tokenValue / tokensPerETH;
+    uint256 tokenWEIValue = tokenAmount * (10 ** 18);
+    uint256 tokenETHValue = tokenWEIValue / tokensPerETH;
     uint256 vendorTokenBalance = playToken.balanceOf(address(this));
 
     // require token eth value <= transaction value
@@ -39,14 +39,14 @@ contract Vendor is Ownable {
 
     // require tokenAmount <= vendor contract balance
     console.log(tokenValue, vendorTokenBalance);
-    require(tokenValue <= vendorTokenBalance,
+    require(tokenWEIValue <= vendorTokenBalance,
       'Not enough tokens available to fulfill the order');
 
     // emit event
     emit BuyTokens(purchaser, msg.value, tokenAmount);
 
     // transfer
-    playToken.transfer(purchaser, tokenValue);
+    playToken.transfer(purchaser, tokenWEIValue);
   }
 
 }
