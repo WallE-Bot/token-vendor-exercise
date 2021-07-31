@@ -13,7 +13,7 @@ contract Vendor is Ownable {
   // the PLAY token inclusion
   IERC20 private playToken;
   // set a constant price per token for the demo
-  uint256 public constant tokensPerETH = 100;
+  uint256 public constant tokensPerETH = 1000;
   // buyer address, token amount, total ETH cost
   event BuyTokens(address, uint256, uint256);
 
@@ -29,8 +29,9 @@ contract Vendor is Ownable {
     confirm sufficient balance in UI as well
   */
   function buyTokens(address purchaser, uint256 tokenAmount) public payable {
-    console.log(address(this), tokenAmount);
-    playToken.transfer(purchaser, tokenAmount);
+    uint256 tokens = tokenAmount * tokensPerETH;
+    emit BuyTokens(purchaser, msg.value, tokens);
+    playToken.transfer(purchaser, tokens);
   }
 
 }
