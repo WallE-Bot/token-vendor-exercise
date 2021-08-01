@@ -27,11 +27,11 @@ const BuyForm = ({
   const handleSubmit = async e => {
     e.preventDefault();
 
-    const returned = await tx(VendorContract.buyTokens(
+    const returned = await VendorContract.buyTokens(
       address,
       playAmount,
       { value: parseUnits(ethTotal) },
-    ));
+    );
 
     console.log(returned);
     setAllValues('','','');

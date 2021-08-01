@@ -25,6 +25,7 @@ const Main = ({
       <TokenInfoContainer
         vendorPLAYBalance={vendorPLAYBalance}
         tokensPerETH={tokensPerETH}
+        ethPrice={ethPrice}
       />
       <TransactionContainer
         ethPrice={ethPrice}

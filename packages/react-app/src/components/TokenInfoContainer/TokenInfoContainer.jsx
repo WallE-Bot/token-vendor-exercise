@@ -1,13 +1,21 @@
 import React, { useState } from 'react';
 import { uuid } from 'uuidv4';
 import './TokenInfoContainer.css';
+import { formatEther } from "@ethersproject/units";
+const { BigNumber } = require("ethers");
 
-const TokenInfoContainer = ({ vendorPLAYBalance, tokensPerETH }) => {
-  const rate = 1 / tokensPerETH;
+const TokenInfoContainer = ({
+  vendorPLAYBalance,
+  tokensPerETH,
+  ethPrice
+}) => {
+  const rate = parseFloat(1 / tokensPerETH * ethPrice).toFixed(2);
+  const BN = BigNumber.from(vendorPLAYBalance);
+  const formattedPLAY = parseFloat(formatEther(BN)).toFixed(0);
 
   const infoData = {
-    'rate': `${rate} ETH / PLAY`,
-    'vendor supply': `${vendorPLAYBalance}`
+    'RATE': `$${rate} USD`,
+    'PLAY AVAILABLE': `${formattedPLAY}`
   }
 
   const generateTokenInfoList = () => {

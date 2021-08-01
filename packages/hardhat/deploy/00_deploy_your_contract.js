@@ -25,7 +25,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
   const supply = await PolyAlloyToken.totalSupply();
   const myAddress = '0xf59950DF4D0816F236FFb3A83fc58318B0ac0250';
 
-  const result = await PolyAlloyToken.transfer( vendorContractAddress, utils.parseEther("1000") );
+  const result = await PolyAlloyToken.transfer( vendorContractAddress, supply);
   await VendorContract.transferOwnership(myAddress);
   await PolyAlloyToken.increaseAllowance(vendorContractAddress, supply);
   await PolyAlloyToken.increaseAllowance(myAddress, supply);

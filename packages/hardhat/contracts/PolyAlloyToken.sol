@@ -9,7 +9,7 @@ contract PolyAlloyToken is ERC20, Ownable {
 
   // mint tokens on execution to contract deployer
   constructor() ERC20("Poly Alloy", "PLAY") public {
-    _mint(msg.sender, 1000 * (10 ** 18));
+    _mint(msg.sender, 1000000000 * (10 ** 18));
   }
 
 }
