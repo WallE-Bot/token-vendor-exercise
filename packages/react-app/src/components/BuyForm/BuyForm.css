@@ -1,0 +1,47 @@
+.transaction-form {
+  display: flex;
+  flex-direction: column;
+  justify-items: flex-end;
+  align-items: flex-end;
+}
+
+.transaction-form > label {
+  display: flex;
+  flex-direction: row;
+  align-content: flex-end;
+}
+
+.transaction-form > label > input[type='text'] {
+  background: transparent;
+  border: 1px solid #106390;
+  padding: 2px 12px;
+  width: 250px;
+  margin-left: 15px;
+  margin-bottom: 8px;
+}
+
+.transaction-form > label > input[type='text']:focus {
+  outline: none;
+}
+
+.transaction-form > label > input[type='number'] {
+  background: transparent;
+  border: 1px solid #106390;
+  padding: 2px 12px;
+  width: 250px;
+  margin-left: 15px;
+  margin-bottom: 8px;
+}
+
+.transaction-form > label > input[type='number']:focus {
+  outline: none;
+}
+
+
+.transaction-form > input[type='submit'] {
+  margin: 15px auto;
+  background: transparent;
+  border: 1px solid #106390;
+  padding: 8px;
+  cursor: pointer;
+}

@@ -1,0 +1,23 @@
+.wallet-container {
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5em;
+}
+
+.balance {
+}
+
+.wallet-button {
+  background: rgba(0, 1, 49, .5);
+  padding: 2px 12px;
+  position: absolute;
+  top: 100px;
+  right: 0;
+  border: 1px solid #106390;
+  border-top: 0;
+  cursor: pointer;
+  width: 100px;
+}

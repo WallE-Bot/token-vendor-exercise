@@ -1,0 +1,7 @@
+header {
+  height: 100px;
+  width: 100%;
+  display: flex;
+  border-bottom: 1px solid #106390;
+  background: rgba(0, 1, 49, .5);
+}

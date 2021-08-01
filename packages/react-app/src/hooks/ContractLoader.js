@@ -21,9 +21,9 @@ const { ethers } = require("ethers");
   - userProvider enables writing transactions into contracts
   - Example of keeping track of "purpose" variable by loading contracts into readContracts
     and using ContractReader.js hook:
-    const purpose = useContractReader(readContracts,"YourContract", "purpose")
+    const purpose = useContractReader(readContracts,"PolyAlloyToken", "purpose")
   - Example of using setPurpose function from our contract and writing transactions by Transactor.js helper:
-    tx( writeContracts.YourContract.setPurpose(newPurpose) )
+    tx( writeContracts.PolyAlloyToken.setPurpose(newPurpose) )
 
   config can include:
   - chainId - to hardcode the chainId, irrespective of the providerOrSigner chainId
@@ -40,7 +40,6 @@ export default function useContractLoader(providerOrSigner, config = {}) {
 
     async function loadContracts() {
       if (providerOrSigner && typeof providerOrSigner !== "undefined") {
-        console.log(`loading contracts`);
         try {
           // we need to check to see if this providerOrSigner has a signer or not
           let signer;

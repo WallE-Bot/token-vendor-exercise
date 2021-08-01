@@ -1,0 +1,29 @@
+.transaction-panels {
+  width: 100%;
+  height: 50px;
+  display: flex;
+}
+
+.panel {
+  width: 50%;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #106390;
+  cursor: pointer;
+  background: rgba(0, 1, 49, .5);
+  font-size: 1.2em
+}
+
+.buy {
+  border-left: 0;
+}
+
+.transfer {
+
+}
+
+.selected {
+  font-size: 1.4em;
+}
