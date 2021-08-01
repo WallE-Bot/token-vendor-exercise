@@ -11,7 +11,13 @@ const Main = ({
     PolyAlloyTokenContract,
     address,
     userLocalBalance,
-    vendorAddress
+    vendorAddress,
+    VendorContract,
+    provider,
+    gasPrice,
+    tx,
+    signer,
+    blockExplorer,
  }) => {
 
   return (
@@ -30,6 +36,12 @@ const Main = ({
         userLocalBalance={userLocalBalance}
         vendorAddress={vendorAddress}
         tokensPerETH={tokensPerETH}
+        VendorContract={VendorContract}
+        provider={provider}
+        gasPrice={gasPrice}
+        tx={tx}
+        signer={signer}
+        blockExplorer={blockExplorer}
       />
     </main>
   )

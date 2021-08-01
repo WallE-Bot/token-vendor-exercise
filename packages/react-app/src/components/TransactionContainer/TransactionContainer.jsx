@@ -10,6 +10,12 @@ const TransactionContainer = ({
     vendorPLAYBalance,
     PolyAlloyTokenContract,
     tokensPerETH,
+    VendorContract,
+    provider,
+    gasPrice,
+    tx,
+    signer,
+    blockExplorer,
   }) => {
 
   const [activePanel, setActivePanel] = useState('buy');
@@ -35,6 +41,12 @@ const TransactionContainer = ({
         vendorPLAYBalance={vendorPLAYBalance}
         PolyAlloyTokenContract={PolyAlloyTokenContract}
         tokensPerETH={tokensPerETH}
+        VendorContract={VendorContract}
+        provider={provider}
+        gasPrice={gasPrice}
+        tx={tx}
+        signer={signer}
+        blockExplorer={blockExplorer}
       />
     </div>
   );

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './BuyForm.css';
-import { parseEther } from "@ethersproject/units";
+import { parseUnits, formatEther } from "@ethersproject/units";
+import { Transactor } from "../../helpers";
 
 // error handling and UI feedback to do later
 const BuyForm = ({
@@ -11,35 +12,29 @@ const BuyForm = ({
     vendorAddress,
     PolyAlloyTokenContract,
     tokensPerETH,
+    VendorContract,
+    provider,
+    gasPrice,
+    tx,
+    signer,
+    blockExplorer,
   }) => {
 
   const [playAmount, setPlayAmount] = useState('');
   const [ethTotal, setEthTotal] = useState('');
   const [usdTotal, setUsdTotal] = useState('');
 
-  // not reading metmask address properly
-  const isUserETHBalanceSufficient = () => {
-    return userLocalBalance.gte(1);
-  }
-
-  const isVendorPLAYBalanceSufficient = () => {
-    return parseEther(vendorPLAYBalance).gte(parseEther(playAmount));
-  }
-
   const handleSubmit = async e => {
     e.preventDefault();
 
-    const userETHSufficient = isUserETHBalanceSufficient();
-    const vendorPLAYSufficient = isVendorPLAYBalanceSufficient();
+    const returned = await tx(VendorContract.buyTokens(
+      address,
+      playAmount,
+      { value: parseUnits(ethTotal) },
+    ));
 
-    if (userETHSufficient && vendorPLAYSufficient) {
-      await PolyAlloyTokenContract.transferFrom(
-        vendorAddress,
-        address,
-        playAmount
-      );
-      setAllValues('');
-    }
+    console.log(returned);
+    setAllValues('','','');
   }
 
   const setAllValues = (PLAY, ETH, USD) => {
@@ -49,9 +44,17 @@ const BuyForm = ({
   }
 
   const handlePlayAmountChange = value => {
-    const ethValue = parseFloat(value) / parseFloat(tokensPerETH);
+    // PLAY value to WEI / ratio then format to ETH denom
+    const ethValue = formatEther(parseUnits(value).div(tokensPerETH));
+    // ETH denom * ETHUSD
     const usdValue = ethValue * ethPrice;
-    setAllValues(value, ethValue, usdValue);
+
+    // don't limit decimal places if below $1
+    const formatUSDValue = usdValue > 1
+      ? parseFloat(usdValue).toFixed(2)
+      : usdValue;
+
+    setAllValues(value, ethValue, formatUSDValue);
   }
 
   const handleEthTotalChange = value => {
@@ -80,10 +83,6 @@ const BuyForm = ({
 
     const stateFunction = stateFunctions[inputName];
     stateFunction(value);
-  }
-
-  const convertToETH = (value) => {
-    return
   }
 
   return (

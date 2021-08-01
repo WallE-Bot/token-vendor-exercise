@@ -12,6 +12,12 @@ const TransactionWindow = ({
     userLocalBalance,
     vendorAddress,
     tokensPerETH,
+    VendorContract,
+    provider,
+    gasPrice,
+    tx,
+    signer,
+    blockExplorer,
  }) => {
 
    const props = {
@@ -23,6 +29,12 @@ const TransactionWindow = ({
      vendorAddress,
      tokensPerETH,
      ethPrice,
+     VendorContract,
+     provider,
+     gasPrice,
+     tx,
+     signer,
+     blockExplorer,
    }
 
   const generateForm = () => {

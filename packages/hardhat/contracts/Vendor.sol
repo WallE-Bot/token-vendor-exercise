@@ -2,7 +2,7 @@ pragma solidity >=0.6.0 <0.9.0;
 //SPDX-License-Identifier: MIT
 
 import "hardhat/console.sol";
-import './YourContract.sol';
+import './PolyAlloyToken.sol';
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/math/SafeMath.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
@@ -32,13 +32,12 @@ contract Vendor is Ownable {
     uint256 tokenWEIValue = tokenAmount * (10 ** 18);
     uint256 tokenETHValue = tokenWEIValue / tokensPerETH;
     uint256 vendorTokenBalance = playToken.balanceOf(address(this));
-
+    console.log(msg.value, tokenETHValue);
     // require token eth value <= transaction value
     require(tokenETHValue == msg.value,
       'Too much or not enough ETH sent, tokens are 1000 tokens/ETH');
 
     // require tokenAmount <= vendor contract balance
-    console.log(tokenValue, vendorTokenBalance);
     require(tokenWEIValue <= vendorTokenBalance,
       'Not enough tokens available to fulfill the order');
 
