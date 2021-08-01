@@ -11,35 +11,24 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     log: true,
   });
 
-  // get the contract after deployment and send supply to my address
   const PolyAlloyToken = await ethers.getContract("PolyAlloyToken", deployer);
-  const tokenAddress = PolyAlloyToken.address;
-  const supply = await PolyAlloyToken.totalSupply();
-  const myAddress = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266';
-
+  const polyAlloyTokenAddress = PolyAlloyToken.address;
   await deploy("Vendor", {
     // Learn more about args here: https://www.npmjs.com/package/hardhat-deploy#deploymentsdeploy
     from: deployer,
-    args: [tokenAddress],
+    args: [polyAlloyTokenAddress],
     log: true,
   });
 
-  const Vendor = await ethers.getContract("Vendor", deployer);
-  const vendorAddress = Vendor.address;
+  const VendorContract = await ethers.getContract('Vendor', deployer);
+  const vendorContractAddress = VendorContract.address;
+  const supply = await PolyAlloyToken.totalSupply();
+  const myAddress = '0xf59950DF4D0816F236FFb3A83fc58318B0ac0250';
 
-  // transfer the full supply to vendor(for now) and transfer
-  // ownership to my front-end address
-  await PolyAlloyToken.transfer(vendorAddress, supply);
-  await Vendor.transferOwnership(myAddress);
+  const result = await PolyAlloyToken.transfer( vendorContractAddress, utils.parseEther("1000") );
+  await VendorContract.transferOwnership(myAddress);
+  await PolyAlloyToken.increaseAllowance(vendorContractAddress, supply);
   await PolyAlloyToken.increaseAllowance(myAddress, supply);
-
-  /*
-    // Getting a previously deployed contract
-    const PolyAlloyToken = await ethers.getContract("PolyAlloyToken", deployer);
-    await PolyAlloyToken.setPurpose("Hello");
-
-    //const yourContract = await ethers.getContractAt('PolyAlloyToken', "0xaAC799eC2d00C013f1F11c37E654e59B0429DF6A") //<-- if you want to instantiate a version of a contract at a specific address!
-  */
 };
 module.exports.tags = ["PolyAlloyToken"];
 
