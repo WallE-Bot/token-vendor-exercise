@@ -25,5 +25,6 @@
 }
 
 .selected {
-  font-size: 1.4em;
+  background: rgba(16, 99, 144, .5);
+  color: white;
 }

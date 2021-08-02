@@ -1,13 +1,20 @@
 import React, { useState } from 'react';
 import './TransferForm.css';
+import { parseUnits, formatEther, parseEther } from "@ethersproject/units";
+const { BigNumber } = require("ethers");
 
 // error handling and UI feedback to do later
 const TransferForm = ({
     ethPrice,
-    userPLAYBalance,
-    yourLocalBalance,
-    polyAlloyTokenContract,
-    address
+    userLocalBalance,
+    vendorPLAYBalance,
+    address,
+    vendorAddress,
+    PolyAlloyTokenContract,
+    tokensPerETH,
+    VendorContract,
+    provider,
+    gasPrice,
   }) => {
 
   const [playAmount, setPlayAmount] = useState('');
@@ -15,40 +22,76 @@ const TransferForm = ({
   const [ethTotal, setEthTotal] = useState('');
   const [usdTotal, setUsdTotal] = useState('');
 
-  const reset = () => {
-    setPlayAmount('');
-    setRecipient('');
-    setEthTotal('');
-    setUsdTotal('');
-  }
-
-  // is user PLAY balance large enough
-  const isBalanceSufficient = () => {
-    return userPLAYBalance >= playAmount;
+  const setAllValues = (PLAY, ETH, USD, ADDR = recipient) => {
+    setPlayAmount(PLAY);
+    setEthTotal(ETH);
+    setUsdTotal(USD);
+    setRecipient(ADDR);
   }
 
   const handleSubmit = async e => {
     e.preventDefault();
 
-    const hasBalance = isBalanceSufficient();
-    if (hasBalance) {
-      const result = await polyAlloyTokenContract.transferFrom(address, recipient, playAmount);
-      reset();
-    }
+    // increase allowance
+
+
+    // transfer
+    const returned = await PolyAlloyTokenContract.transferFrom(
+      address,
+      recipient,
+      { value: parseUnits(ethTotal) },
+    );
+
+    setAllValues('','','','');
+  }
+
+  const handlePlayAmountChange = value => {
+    const ethValue = formatEther(parseUnits(value).div(tokensPerETH));
+    const usdValue = ethValue * ethPrice;
+
+    const formatUSDValue = usdValue > 1
+      ? parseFloat(usdValue).toFixed(2)
+      : usdValue;
+
+    setAllValues(value, ethValue, formatUSDValue);
+  }
+
+  const handleEthTotalChange = value => {
+    const playValue = formatEther(parseUnits(value).mul(tokensPerETH));
+    const usdValue = value * ethPrice;
+
+    const formatUSDValue = usdValue > 1
+      ? parseFloat(usdValue).toFixed(2)
+      : usdValue;
+
+    setAllValues(playValue, value, formatUSDValue);
+  }
+
+  const handleUsdTotalChange = value => {
+    const ethValue = parseFloat(value) / ethPrice;
+    const playValue = ethValue * tokensPerETH;
+
+    const formatUSDValue = value > 1
+      ? parseFloat(value).toFixed(2)
+      : value;
+
+    setAllValues(playValue, ethValue, formatUSDValue);
   }
 
   const handleInputChange = e => {
     const stateFunctions = {
-      'play-amount': setPlayAmount,
       'recipient': setRecipient,
-      'eth-value': setEthTotal,
-      'usd-value': setUsdTotal
+      'play-amount': handlePlayAmountChange,
+      'eth-total': handleEthTotalChange,
+      'usd-total': handleUsdTotalChange
     };
 
     const inputName = e.target.id;
-    const value = e.target.value;
-    const stateFunction = stateFunctions[inputName];
 
+    const value = e.target.value;
+    if (!value) { setAllValues('', '', ''); return; }
+
+    const stateFunction = stateFunctions[inputName];
     stateFunction(value);
   }
 
@@ -57,17 +100,6 @@ const TransferForm = ({
       className='transaction-form'
       onSubmit={handleSubmit}
     >
-      <label htmlFor='play-amount'>
-        PLAY amount:
-        <input
-          onChange={handleInputChange}
-          name='play-amount'
-          id='play-amount'
-          type='number'
-          placeholder='0'
-          value={playAmount}
-        />
-      </label>
       <label htmlFor='recipient'>
         Recipient:
         <input
@@ -79,12 +111,23 @@ const TransferForm = ({
           value={recipient}
         />
       </label>
+      <label htmlFor='play-amount'>
+        PLAY amount:
+        <input
+          onChange={handleInputChange}
+          name='play-amount'
+          id='play-amount'
+          type='number'
+          placeholder='0'
+          value={playAmount}
+        />
+      </label>
       <label htmlFor='eth-value'>
         ETH value:
         <input
           onChange={handleInputChange}
           name='eth-value'
-          id='eth-value'
+          id='eth-total'
           type='number'
           placeholder='0'
           value={ethTotal}
@@ -95,7 +138,7 @@ const TransferForm = ({
         <input
           onChange={handleInputChange}
           name='usd-value'
-          id='usd-value'
+          id='usd-total'
           type='number'
           placeholder='0'
           value={usdTotal}

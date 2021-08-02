@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import './BuyForm.css';
 import { parseUnits, formatEther, parseEther } from "@ethersproject/units";
-import { Transactor } from "../../helpers";
 const { BigNumber } = require("ethers");
 
 // error handling and UI feedback to do later
@@ -16,9 +15,6 @@ const BuyForm = ({
     VendorContract,
     provider,
     gasPrice,
-    tx,
-    signer,
-    blockExplorer,
   }) => {
 
   const [playAmount, setPlayAmount] = useState('');
@@ -34,7 +30,6 @@ const BuyForm = ({
       { value: parseUnits(ethTotal) },
     );
 
-    console.log(returned);
     setAllValues('','','');
   }
 
