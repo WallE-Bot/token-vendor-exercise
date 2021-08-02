@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import './BuyForm.css';
-import { parseUnits, formatEther } from "@ethersproject/units";
+import { parseUnits, formatEther, parseEther } from "@ethersproject/units";
 import { Transactor } from "../../helpers";
+const { BigNumber } = require("ethers");
 
 // error handling and UI feedback to do later
 const BuyForm = ({
@@ -44,12 +45,9 @@ const BuyForm = ({
   }
 
   const handlePlayAmountChange = value => {
-    // PLAY value to WEI / ratio then format to ETH denom
     const ethValue = formatEther(parseUnits(value).div(tokensPerETH));
-    // ETH denom * ETHUSD
     const usdValue = ethValue * ethPrice;
 
-    // don't limit decimal places if below $1
     const formatUSDValue = usdValue > 1
       ? parseFloat(usdValue).toFixed(2)
       : usdValue;
@@ -58,15 +56,25 @@ const BuyForm = ({
   }
 
   const handleEthTotalChange = value => {
-    const playValue = parseFloat(value) * parseFloat(tokensPerETH);
-    const usdValue = parseFloat(value) * ethPrice;
-    setAllValues(playValue, value, usdValue);
+    const playValue = formatEther(parseUnits(value).mul(tokensPerETH));
+    const usdValue = value * ethPrice;
+
+    const formatUSDValue = usdValue > 1
+      ? parseFloat(usdValue).toFixed(2)
+      : usdValue;
+
+    setAllValues(playValue, value, formatUSDValue);
   }
 
   const handleUsdTotalChange = value => {
     const ethValue = parseFloat(value) / ethPrice;
-    const playValue = ethValue * parseFloat(tokensPerETH);
-    setAllValues(playValue, ethValue, value);
+    const playValue = ethValue * tokensPerETH;
+
+    const formatUSDValue = value > 1
+      ? parseFloat(value).toFixed(2)
+      : value;
+
+    setAllValues(playValue, ethValue, formatUSDValue);
   }
 
   const handleInputChange = e => {
@@ -121,6 +129,7 @@ const BuyForm = ({
           type='number'
           placeholder='0'
           value={usdTotal}
+          min={1}
         />
       </label>
       <input

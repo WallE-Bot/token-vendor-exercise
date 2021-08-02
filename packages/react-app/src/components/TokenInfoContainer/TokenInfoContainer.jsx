@@ -14,8 +14,8 @@ const TokenInfoContainer = ({
   const formattedPLAY = parseFloat(formatEther(BN)).toFixed(0);
 
   const infoData = {
-    'RATE': `$${rate} USD`,
-    'PLAY AVAILABLE': `${formattedPLAY}`
+    'rate': `$${rate} USD`,
+    'PLAY available': `${formattedPLAY}`
   }
 
   const generateTokenInfoList = () => {
