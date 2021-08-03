@@ -32,14 +32,13 @@ const TransferForm = ({
   const handleSubmit = async e => {
     e.preventDefault();
 
-    // increase allowance
+    // remove trailing decimal zeros
+    const playAmountFormatted = parseFloat(playAmount).toPrecision(10).replace(/\.?0+$/,"");
 
-
-    // transfer
     const returned = await PolyAlloyTokenContract.transferFrom(
       address,
       recipient,
-      { value: parseUnits(ethTotal) },
+      playAmountFormatted
     );
 
     setAllValues('','','','');
@@ -109,6 +108,7 @@ const TransferForm = ({
           type='text'
           placeholder='0x0000000000000000000000000000000000000000'
           value={recipient}
+          required={true}
         />
       </label>
       <label htmlFor='play-amount'>
@@ -117,7 +117,7 @@ const TransferForm = ({
           onChange={handleInputChange}
           name='play-amount'
           id='play-amount'
-          type='number'
+          type='text'
           placeholder='0'
           value={playAmount}
         />
@@ -128,7 +128,7 @@ const TransferForm = ({
           onChange={handleInputChange}
           name='eth-value'
           id='eth-total'
-          type='number'
+          type='text'
           placeholder='0'
           value={ethTotal}
         />
@@ -139,7 +139,7 @@ const TransferForm = ({
           onChange={handleInputChange}
           name='usd-value'
           id='usd-total'
-          type='number'
+          type='text'
           placeholder='0'
           value={usdTotal}
         />

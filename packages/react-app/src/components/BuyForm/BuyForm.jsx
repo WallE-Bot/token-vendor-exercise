@@ -24,9 +24,12 @@ const BuyForm = ({
   const handleSubmit = async e => {
     e.preventDefault();
 
+    // remove trailing decimal zeros
+    const playAmountFormatted = parseFloat(playAmount).toPrecision(10).replace(/\.?0+$/,"");
+
     const returned = await VendorContract.buyTokens(
       address,
-      playAmount,
+      playAmountFormatted,
       { value: parseUnits(ethTotal) },
     );
 
@@ -99,7 +102,7 @@ const BuyForm = ({
           onChange={handleInputChange}
           name='play-amount'
           id='play-amount'
-          type='number'
+          type='text'
           placeholder='0'
           value={playAmount}
         />
@@ -110,7 +113,7 @@ const BuyForm = ({
           onChange={handleInputChange}
           name='eth-total'
           id='eth-total'
-          type='number'
+          type='text'
           placeholder='0'
           value={ethTotal}
         />
@@ -121,7 +124,7 @@ const BuyForm = ({
           onChange={handleInputChange}
           name='usd-total'
           id='usd-total'
-          type='number'
+          type='text'
           placeholder='0'
           value={usdTotal}
           min={1}

@@ -18,7 +18,7 @@ const TransactionContainer = ({
     blockExplorer,
   }) => {
 
-  const [activePanel, setActivePanel] = useState('transfer');
+  const [activePanel, setActivePanel] = useState('buy');
 
   const handlePanelClick = e => {
     const panel = e.target.value;
