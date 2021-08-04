@@ -15,7 +15,8 @@ const BuyForm = ({
     VendorContract,
     provider,
     gasPrice,
-    buyTokens
+    buyTokens,
+    updatePLAYBalances
   }) => {
 
   const [playAmount, setPlayAmount] = useState('');
@@ -35,6 +36,7 @@ const BuyForm = ({
     );
 
     setAllValues('','','');
+    updatePLAYBalances();
   }
 
   const setAllValues = (PLAY, ETH, USD) => {

@@ -17,7 +17,8 @@ const TransferForm = ({
     gasPrice,
     allowance,
     increaseAllowance,
-    transferFrom
+    transferFrom,
+    updatePLAYBalances,
   }) => {
 
   const [playAmount, setPlayAmount] = useState('');
@@ -52,6 +53,7 @@ const TransferForm = ({
     );
 
     setAllValues('','','','');
+    updatePLAYBalances();
   }
 
   const handlePlayAmountChange = value => {

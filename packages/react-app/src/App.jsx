@@ -85,7 +85,6 @@ function App(props) {
     async function getAddress() {
       if (userSigner) {
         const newAddress = await userSigner.getAddress();
-        console.log(newAddress);
         setAddress(newAddress);
       }
     }
@@ -135,16 +134,20 @@ function App(props) {
 
   const tokensPerETH = 1000;
 
+  const updatePLAYBalances = async () => {
+    const userBalance = await PolyAlloyTokenContract.balanceOf(address);
+    const vendorBalance = await PolyAlloyTokenContract.balanceOf(VendorContract.address);
+    setUserPLAYBalance(userBalance.toString());
+    setVendorPLAYBalance(vendorBalance.toString());
+  }
+
   useEffect(() => {
     (async () => {
       if (PolyAlloyTokenContract) {
-        const userBalance = await PolyAlloyTokenContract.balanceOf(address);
-        const vendorBalance = await PolyAlloyTokenContract.balanceOf(VendorContract.address);
-        setUserPLAYBalance(userBalance.toString());
-        setVendorPLAYBalance(vendorBalance.toString());
+        updatePLAYBalances();
       }
     })()
-  }, [PolyAlloyTokenContract]);
+  }, []);
 
   // If you want to make 🔐 write transactions to your contracts, use the userSigner:
   const writeContracts = useContractLoader(userSigner, { chainId: localChainId });
@@ -348,8 +351,9 @@ function App(props) {
         tx={tx}
         signer={userSigner}
         blockExplorer={blockExplorer}
+        updatePLAYBalances={updatePLAYBalances}
         buyTokens = { (address, playAmount, ethValue) => {
-          tx( writeContracts.Vendor.buyTokens(
+          return tx( writeContracts.Vendor.buyTokens(
             address,
             playAmount,
             {value: ethValue}

@@ -22,6 +22,7 @@ const TransactionWindow = ({
     allowance,
     increaseAllowance,
     transferFrom,
+    updatePLAYBalances
  }) => {
 
    const props = {
@@ -42,7 +43,8 @@ const TransactionWindow = ({
      buyTokens,
      allowance,
      increaseAllowance,
-     transferFrom
+     transferFrom,
+     updatePLAYBalances,
    }
 
   const generateForm = () => {

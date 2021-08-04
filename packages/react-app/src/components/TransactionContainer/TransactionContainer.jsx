@@ -19,10 +19,11 @@ const TransactionContainer = ({
     buyTokens,
     allowance,
     increaseAllowance,
-    transferFrom
+    transferFrom,
+    updatePLAYBalances
   }) => {
 
-  const [activePanel, setActivePanel] = useState('transfer');
+  const [activePanel, setActivePanel] = useState('buy');
 
   const handlePanelClick = e => {
     const panel = e.target.value;
@@ -55,6 +56,7 @@ const TransactionContainer = ({
         allowance={allowance}
         increaseAllowance={increaseAllowance}
         transferFrom={transferFrom}
+        updatePLAYBalances={updatePLAYBalances}
       />
     </div>
   );

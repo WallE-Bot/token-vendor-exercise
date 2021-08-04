@@ -21,7 +21,8 @@ const Main = ({
     buyTokens,
     allowance,
     increaseAllowance,
-    transferFrom
+    transferFrom,
+    updatePLAYBalances,
  }) => {
 
   return (
@@ -51,6 +52,7 @@ const Main = ({
         allowance={allowance}
         increaseAllowance={increaseAllowance}
         transferFrom={transferFrom}
+        updatePLAYBalances={updatePLAYBalances}
       />
     </main>
   )

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import './WalletContainer.css';
+import { formatEther } from "@ethersproject/units";
 
 const WalletContainer = ({
     isConnected,
@@ -21,10 +22,11 @@ const WalletContainer = ({
 
   const clickDataKey = isConnected ? 'connected' : 'notConnected';
   const {handler, text} = clickData[clickDataKey];
+  const formatPLAYBalance = parseFloat(formatEther(userPLAYBalance)).toFixed(2);
 
   return (
     <section className='wallet-container'>
-      <h3 className='balance'>PLAY:  {userPLAYBalance}</h3>
+      <h3 className='balance'>PLAY:  {formatPLAYBalance}</h3>
       <button
         className='wallet-button'
         onClick={handler}
