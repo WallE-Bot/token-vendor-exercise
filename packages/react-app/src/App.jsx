@@ -147,7 +147,7 @@ function App(props) {
         updatePLAYBalances();
       }
     })()
-  }, []);
+  }, [PolyAlloyTokenContract, address]);
 
   // If you want to make 🔐 write transactions to your contracts, use the userSigner:
   const writeContracts = useContractLoader(userSigner, { chainId: localChainId });
