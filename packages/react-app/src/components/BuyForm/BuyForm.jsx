@@ -15,6 +15,7 @@ const BuyForm = ({
     VendorContract,
     provider,
     gasPrice,
+    buyTokens
   }) => {
 
   const [playAmount, setPlayAmount] = useState('');
@@ -27,10 +28,10 @@ const BuyForm = ({
     // remove trailing decimal zeros
     const playAmountFormatted = parseFloat(playAmount).toPrecision(10).replace(/\.?0+$/,"");
 
-    const returned = await VendorContract.buyTokens(
+    const returned = await buyTokens(
       address,
       playAmountFormatted,
-      { value: parseUnits(ethTotal) },
+      parseUnits(ethTotal)
     );
 
     setAllValues('','','');
@@ -72,7 +73,7 @@ const BuyForm = ({
       ? parseFloat(value).toFixed(2)
       : value;
 
-    setAllValues(playValue, ethValue, formatUSDValue);
+    setAllValues(playValue, ethValue, value);
   }
 
   const handleInputChange = e => {

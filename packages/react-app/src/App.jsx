@@ -348,6 +348,32 @@ function App(props) {
         tx={tx}
         signer={userSigner}
         blockExplorer={blockExplorer}
+        buyTokens = { (address, playAmount, ethValue) => {
+          tx( writeContracts.Vendor.buyTokens(
+            address,
+            playAmount,
+            {value: ethValue}
+          ))
+        }}
+        allowance = { (owner, spender) => {
+          return tx( readContracts.PolyAlloyToken.allowance(
+            owner,
+            spender
+          ))
+        }}
+        increaseAllowance = { (spender, addedValue) => {
+          return tx( writeContracts.PolyAlloyToken.increaseAllowance(
+            spender,
+            addedValue
+          ))
+        }}
+        transferFrom = { (sender, recipient, amount) => {
+          return tx( writeContracts.PolyAlloyToken.transferFrom(
+            sender,
+            recipient,
+            amount
+          ))
+        }}
       />
 
       {/*

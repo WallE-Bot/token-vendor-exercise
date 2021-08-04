@@ -18,6 +18,10 @@ const Main = ({
     tx,
     signer,
     blockExplorer,
+    buyTokens,
+    allowance,
+    increaseAllowance,
+    transferFrom
  }) => {
 
   return (
@@ -43,6 +47,10 @@ const Main = ({
         tx={tx}
         signer={signer}
         blockExplorer={blockExplorer}
+        buyTokens={buyTokens}
+        allowance={allowance}
+        increaseAllowance={increaseAllowance}
+        transferFrom={transferFrom}
       />
     </main>
   )

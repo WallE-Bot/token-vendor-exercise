@@ -15,6 +15,9 @@ const TransferForm = ({
     VendorContract,
     provider,
     gasPrice,
+    allowance,
+    increaseAllowance,
+    transferFrom
   }) => {
 
   const [playAmount, setPlayAmount] = useState('');
@@ -34,11 +37,18 @@ const TransferForm = ({
 
     // remove trailing decimal zeros
     const playAmountFormatted = parseFloat(playAmount).toPrecision(10).replace(/\.?0+$/,"");
+    const playValue = parseEther(playAmount);
 
-    const returned = await PolyAlloyTokenContract.transferFrom(
+    const userAllowance = await allowance(address, address);
+    console.log(playValue, userAllowance);
+    if (userAllowance.lt(playValue)) {
+      await increaseAllowance(address, playValue);
+    }
+
+    const returned = await transferFrom(
       address,
       recipient,
-      playAmountFormatted
+      playValue
     );
 
     setAllValues('','','','');

@@ -18,6 +18,10 @@ const TransactionWindow = ({
     tx,
     signer,
     blockExplorer,
+    buyTokens,
+    allowance,
+    increaseAllowance,
+    transferFrom,
  }) => {
 
    const props = {
@@ -35,6 +39,10 @@ const TransactionWindow = ({
      tx,
      signer,
      blockExplorer,
+     buyTokens,
+     allowance,
+     increaseAllowance,
+     transferFrom
    }
 
   const generateForm = () => {

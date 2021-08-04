@@ -16,9 +16,13 @@ const TransactionContainer = ({
     tx,
     signer,
     blockExplorer,
+    buyTokens,
+    allowance,
+    increaseAllowance,
+    transferFrom
   }) => {
 
-  const [activePanel, setActivePanel] = useState('buy');
+  const [activePanel, setActivePanel] = useState('transfer');
 
   const handlePanelClick = e => {
     const panel = e.target.value;
@@ -47,6 +51,10 @@ const TransactionContainer = ({
         tx={tx}
         signer={signer}
         blockExplorer={blockExplorer}
+        buyTokens={buyTokens}
+        allowance={allowance}
+        increaseAllowance={increaseAllowance}
+        transferFrom={transferFrom}
       />
     </div>
   );
