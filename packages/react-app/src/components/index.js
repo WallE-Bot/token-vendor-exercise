@@ -27,3 +27,4 @@ export { default as TransactionWindow } from "./TransactionWindow/TransactionWin
 export { default as TransactionPanels } from "./TransactionPanels/TransactionPanels.jsx";
 export { default as BuyForm } from "./BuyForm/BuyForm.jsx";
 export { default as TransferForm } from "./TransferForm/TransferForm.jsx";
+export { default as HumanSVG } from "./HumanSVG/HumanSVG.jsx";
