@@ -6,8 +6,9 @@ import './Token.sol';
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/math/SafeMath.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 
-contract Vendor is Ownable,  {
+contract Vendor is Ownable, ReentrancyGuard {
 
   using SafeMath for uint256;
 
@@ -27,7 +28,7 @@ contract Vendor is Ownable,  {
     require vendor has enough tokens to buy
     require msg value to equal required ETH amount
   */
-  function buyTokens(uint256 tokenAmount) public payable {
+  function buyTokens(uint256 tokenAmount) public payable nonReentrant {
     uint256 ETHAmount = tokenAmount.div(tokensPerETH);
 
     require(
@@ -47,7 +48,7 @@ contract Vendor is Ownable,  {
     require sender has enough tokens to sell
     require vendor has enough ETH to buy
   */
-  function sellTokens(uint256 tokenAmount) public {
+  function sellTokens(uint256 tokenAmount) public nonReentrant {
     uint256 ETHAmount = tokenAmount.div(tokensPerETH);
 
     require(
