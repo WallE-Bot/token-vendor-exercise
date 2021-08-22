@@ -7,7 +7,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/math/SafeMath.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
-contract Vendor is Ownable {
+contract Vendor is Ownable,  {
 
   using SafeMath for uint256;
 
@@ -39,7 +39,6 @@ contract Vendor is Ownable {
       "Incorrect ETH amount sent for purchase"
     );
 
-    _token.approve(msg.sender, tokenAmount);
     _token.transfer(msg.sender, tokenAmount);
     emit BuyTokens(msg.sender, tokenAmount, ETHAmount);
   }
@@ -48,8 +47,21 @@ contract Vendor is Ownable {
     require sender has enough tokens to sell
     require vendor has enough ETH to buy
   */
-  function sellTokens(uint256 tokenAmount) public payable {
+  function sellTokens(uint256 tokenAmount) public {
+    uint256 ETHAmount = tokenAmount.div(tokensPerETH);
 
+    require(
+      _token.balanceOf(msg.sender) >= tokenAmount,
+      "User does not have enough tokens"
+    );
+    require(
+      address(this).balance >= ETHAmount,
+      "Vendor does not have enough ETH to buy this many tokens"
+    );
+
+    // requires [msg.sender][vendor contract] allowance through UI approval beforehand
+    _token.transferFrom(msg.sender, address(this), tokenAmount);
+    payable(msg.sender).transfer(ETHAmount);
   }
 
 }
