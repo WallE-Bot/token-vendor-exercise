@@ -50,7 +50,7 @@ const { ethers } = require("ethers");
 const targetNetwork = NETWORKS.localhost; // <------- select your target frontend network (localhost, rinkeby, xdai, mainnet)
 
 // 😬 Sorry for all the console logging
-const DEBUG = true;
+const DEBUG = false;
 const NETWORKCHECK = true;
 
 // 🛰 providers
@@ -106,7 +106,7 @@ const web3Modal = new Web3Modal({
           100:"https://dai.poa.network", // xDai
         },
       },
-      
+
     },
     portis: {
       display: {
@@ -231,12 +231,6 @@ function App(props) {
   const myMainnetDAIBalance = useContractReader(mainnetContracts, "DAI", "balanceOf", [
     "0x34aA3F359A9D614239015126635CE7732c18fDF3",
   ]);
-
-  // keep track of a variable from the contract in the local React state:
-  const purpose = useContractReader(readContracts, "YourContract", "purpose");
-
-  // 📟 Listen for broadcast events
-  const setPurposeEvents = useEventListener(readContracts, "YourContract", "SetPurpose", localProvider, 1);
 
   /*
   const addressFromENS = useResolveName(mainnetProvider, "austingriffith.eth");
@@ -425,7 +419,7 @@ function App(props) {
               }}
               to="/"
             >
-              YourContract
+              YourContracts
             </Link>
           </Menu.Item>
           <Menu.Item key="/hints">
@@ -479,7 +473,14 @@ function App(props) {
             */}
 
             <Contract
-              name="YourContract"
+              name="Token"
+              signer={userSigner}
+              provider={localProvider}
+              address={address}
+              blockExplorer={blockExplorer}
+            />
+            <Contract
+              name="Vendor"
               signer={userSigner}
               provider={localProvider}
               address={address}
@@ -505,8 +506,6 @@ function App(props) {
               tx={tx}
               writeContracts={writeContracts}
               readContracts={readContracts}
-              purpose={purpose}
-              setPurposeEvents={setPurposeEvents}
             />
           </Route>
           <Route path="/mainnetdai">
