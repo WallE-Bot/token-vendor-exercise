@@ -48,7 +48,7 @@ contract Vendor is Ownable, ReentrancyGuard {
     require sender has enough tokens to sell
     require vendor has enough ETH to buy
   */
-  function sellTokens(uint256 tokenAmount) public nonReentrant {
+  function sellTokens(uint256 tokenAmount) public payable nonReentrant {
     uint256 ETHAmount = tokenAmount.div(tokensPerETH);
 
     require(
